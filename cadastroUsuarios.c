@@ -1,3 +1,4 @@
+#include "biblioteca.h"
 // Função para criar um novo usuário
 Usuario* criarUsuario(int id, char* nome, char* email) {
     Usuario* novoUsuario = (Usuario*)malloc(sizeof(Usuario));
