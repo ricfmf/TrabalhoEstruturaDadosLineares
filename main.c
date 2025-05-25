@@ -1,3 +1,11 @@
+#include "biblioteca.h"
+
+// Declaração das variáveis globais
+Livro* tabelaLivros[MAX_TAM];
+Usuario* tabelaUsuarios[MAX_TAM];
+Emprestimo* listaEmprestimos = NULL;
+Multa* listaMultas = NULL;
+
 // Menu principal do sistema utilizando interface em terminal
 void menuPrincipal() {
     int opcao;
