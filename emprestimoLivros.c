@@ -1,3 +1,4 @@
+#include "biblioteca.h"
 // Estrutura para armazenar informações de empréstimo
 typedef struct Emprestimo {
     char isbn[20];
