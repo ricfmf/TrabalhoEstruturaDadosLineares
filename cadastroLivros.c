@@ -1,3 +1,5 @@
+#include "biblioteca.h"
+
 typedef struct Livro {
     char isbn[20];
     char titulo[MAX_STR];
