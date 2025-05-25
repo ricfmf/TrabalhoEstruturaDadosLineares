@@ -86,17 +86,7 @@ int devolverLivro(char* isbn, int idUsuario) {
     return 1;
 }
 
-// Estrutura para registrar multas
-typedef struct Multa {
-    int idUsuario;
-    char isbn[20];
-    double valor;
-    time_t dataDevolucao;
-    int paga; // 0 = não paga, 1 = paga
-    struct Multa* prox;
-} Multa;
 
-Multa* listaMultas = NULL;
 
 // Função para registrar uma multa
 void registrarMulta(int idUsuario, char* isbn, double valor, time_t dataDevolucao) {
