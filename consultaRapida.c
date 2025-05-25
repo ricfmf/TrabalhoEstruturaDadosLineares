@@ -1,3 +1,4 @@
+#include "biblioteca.h"
 // Busca de livros por ISBN (usando hashing) ou título (busca sequencial)
 Livro* buscarLivro(char* chave, int porISBN) {
     if (porISBN) {
