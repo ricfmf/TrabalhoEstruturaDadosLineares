@@ -1,38 +1,5 @@
 #include "biblioteca.h"
 
-// Adicionando campo de status às estruturas
-
-typedef struct Livro {
-
-    char isbn[20];
-
-    char titulo[MAX_STR];
-
-    char autor[MAX_STR];
-
-    int ano;
-
-    int copias;
-
-    int ativo; // 1 para ativo, 0 para inativo
-
-    struct Livro* prox;
-
-} Livro;
- 
-typedef struct Usuario {
-
-    int id;
-
-    char nome[MAX_STR];
-
-    char email[MAX_STR];
-
-    int ativo; // 1 para ativo, 0 para inativo
-
-    struct Usuario* prox;
-
-} Usuario;
  
 // Função para "remover" (marcar como inativo) um livro
 
