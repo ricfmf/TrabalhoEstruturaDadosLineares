@@ -1,5 +1,8 @@
-#include "biblioteca.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "biblioteca.h"
 // Declaração das variáveis globais
 Livro* tabelaLivros[MAX_TAM];
 Usuario* tabelaUsuarios[MAX_TAM];
