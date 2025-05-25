@@ -1,3 +1,5 @@
+#include "biblioteca.h"
+
 // Função para gerar relatório de livros mais emprestados
 void relatorioLivrosMaisEmprestados() {
     printf("\n=== RELATORIO: LIVROS MAIS EMPRESTADOS ===\n");
