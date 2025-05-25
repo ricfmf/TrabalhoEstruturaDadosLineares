@@ -1,3 +1,4 @@
+#include "biblioteca.h"
 // Função para devolver um livro
 int devolverLivro(char* isbn, int idUsuario) {
     // Verificar se o livro existe
