@@ -1,3 +1,5 @@
+#include "biblioteca.h"
+
 void historicoEmprestimosUsuario(int idUsuario) {
     Usuario* usuario = buscarUsuarioPorID(idUsuario);
     if (usuario == NULL) {
