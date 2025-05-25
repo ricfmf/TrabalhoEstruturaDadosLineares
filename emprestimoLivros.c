@@ -1,16 +1,4 @@
 #include "biblioteca.h"
-// Estrutura para armazenar informações de empréstimo
-typedef struct Emprestimo {
-    char isbn[20];
-    int idUsuario;
-    time_t dataEmprestimo;
-    time_t dataDevolucaoPrevista;
-    int status; // 1 = ativo, 0 = devolvido
-    struct Emprestimo* prox;
-} Emprestimo;
-
-// Lista encadeada de empréstimos
-Emprestimo* listaEmprestimos = NULL;
 
 // Função para emprestar um livro
 int emprestarLivro(char* isbn, int idUsuario) {
