@@ -1,22 +1,5 @@
 #include "biblioteca.h"
 
-typedef struct Livro {
-    char isbn[20];
-    char titulo[MAX_STR];
-    char autor[MAX_STR];
-    int ano;
-    int copias;
-    struct Livro* prox; // para tratamento de colisões (encadeamento)
-} Livro;
- 
-typedef struct Usuario {
-    int id;
-    char nome[MAX_STR];
-    char email[MAX_STR];
-    char telefone[11];
-    struct Usuario* prox;
-} Usuario;
- 
 // Tabelas Hash
 Livro* tabelaLivros[MAX_TAM];
 Usuario* tabelaUsuarios[MAX_TAM];
