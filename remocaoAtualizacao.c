@@ -1,3 +1,5 @@
+#include "biblioteca.h"
+
 // Adicionando campo de status às estruturas
 
 typedef struct Livro {
