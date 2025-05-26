@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,9 +14,10 @@ void menuPrincipal() {
     char isbn[20];
     int idUsuario;
     char titulo[MAX_STR];
+    char confirmacao;
     
     do {
-        system("cls || clear"); // Limpar tela (funciona em Windows e Linux/Mac)
+        //system("cls || clear"); // Limpar tela (funciona em Windows e Linux/Mac)//
         
         printf("\n=== SISTEMA DE GERENCIAMENTO DE BIBLIOTECA ===\n");
         printf("1. Cadastrar Livro\n");
@@ -30,6 +30,8 @@ void menuPrincipal() {
         printf("8. Relatorios\n");
         printf("9. Historico de Emprestimos\n");
         printf("10. Gerenciar Multas\n");
+        printf("11. Excluir Livro\n");
+        printf("12. Excluir Usuario\n");
         printf("0. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
@@ -99,6 +101,8 @@ void menuPrincipal() {
                         printf("Nenhum livro encontrado com este titulo!\n");
                     }
                 }
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 6:
                 printf("\n=== CONSULTAR USUARIO ===\n");
@@ -148,12 +152,16 @@ void menuPrincipal() {
                         printf("Nenhum usuario encontrado com este nome!\n");
                     }
                 }
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 7:
                 printf("\n=== LISTAR EMPRESTIMOS ATIVOS ===\n");
                 printf("Digite o ID do usuario: ");
                 scanf("%d", &idUsuario);
                 listarEmprestimosAtivos(idUsuario);
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 8:
                 printf("\n=== RELATORIOS ===\n");
@@ -167,6 +175,8 @@ void menuPrincipal() {
                 } else if (opcao == 2) {
                     relatorioUsuariosAtivos();
                 }
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 9:
                 printf("\n=== HISTORICO DE EMPRESTIMOS ===\n");
@@ -184,6 +194,8 @@ void menuPrincipal() {
                     scanf("%19s", isbn);
                     historicoEmprestimosLivro(isbn);
                 }
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 10:
                 printf("\n=== GERENCIAR MULTAS ===\n");
@@ -207,17 +219,100 @@ void menuPrincipal() {
                     scanf("%19s", isbn);
                     pagarMulta(idUsuario, isbn);
                 }
+                printf("\nPressione Enter para continuar...");
+                getchar();
+                break;
+            case 11:
+                printf("\n=== EXCLUIR LIVRO ===\n");
+                printf("Digite o ISBN do livro a ser excluido: ");
+                scanf("%19s", isbn);
+                
+                // Primeiro, mostrar os dados do livro
+                Livro* livro = buscarLivroPorISBN(isbn);
+                if (livro != NULL && livro->ativo) {
+                    printf("\n=== DADOS DO LIVRO ===\n");
+                    printf("Titulo: %s\n", livro->titulo);
+                    printf("Autor: %s\n", livro->autor);
+                    printf("Ano: %d\n", livro->ano);
+                    printf("ISBN: %s\n", livro->isbn);
+                    printf("Copias disponiveis: %d\n", livro->copias);
+                    
+                    printf("\nTem certeza que deseja excluir este livro? (s/n): ");
+                    scanf(" %c", &confirmacao);
+                    
+                    if (confirmacao == 's' || confirmacao == 'S') {
+                        if (removerLivro(isbn)) {
+                            printf("Livro excluido com sucesso!\n");
+                            salvarLivrosEmArquivo(); // Atualizar arquivo
+                        } else {
+                            printf("Erro ao excluir livro!\n");
+                        }
+                    } else {
+                        printf("Operacao cancelada.\n");
+                    }
+                } else {
+                    printf("Livro nao encontrado ou ja foi excluido!\n");
+                }
+                printf("\nPressione Enter para continuar...");
+                getchar();
+                getchar(); // Consumir o '\n' pendente do scanf anterior
+                break;
+            case 12:
+                printf("\n=== EXCLUIR USUARIO ===\n");
+                printf("Digite o ID do usuario a ser excluido: ");
+                scanf("%d", &idUsuario);
+                
+                // Primeiro, mostrar os dados do usuário
+                Usuario* usuario = buscarUsuarioPorID(idUsuario);
+                if (usuario != NULL && usuario->ativo) {
+                    printf("\n=== DADOS DO USUARIO ===\n");
+                    printf("Nome: %s\n", usuario->nome);
+                    printf("ID: %d\n", usuario->id);
+                    printf("Email: %s\n", usuario->email);
+                    
+                    // Verificar se há empréstimos ativos
+                    int temEmprestimosAtivos = 0;
+                    Emprestimo* emp = listaEmprestimos;
+                    while (emp != NULL) {
+                        if (emp->idUsuario == idUsuario && emp->status == 1) {
+                            temEmprestimosAtivos = 1;
+                            break;
+                        }
+                        emp = emp->prox;
+                    }
+                    
+                    if (temEmprestimosAtivos) {
+                        printf("\nATENCAO: Este usuario possui emprestimos ativos!\n");
+                        printf("Nao e possivel excluir usuario com emprestimos pendentes.\n");
+                    } else {
+                        printf("\nTem certeza que deseja excluir este usuario? (s/n): ");
+                        scanf(" %c", &confirmacao);
+                        
+                        if (confirmacao == 's' || confirmacao == 'S') {
+                            if (removerUsuario(idUsuario)) {
+                                printf("Usuario excluido com sucesso!\n");
+                                salvarUsuariosEmArquivo(); // Atualizar arquivo
+                            } else {
+                                printf("Erro ao excluir usuario!\n");
+                            }
+                        } else {
+                            printf("Operacao cancelada.\n");
+                        }
+                    }
+                } else {
+                    printf("Usuario nao encontrado ou ja foi excluido!\n");
+                }
+                printf("\nPressione Enter para continuar...");
+                getchar();
+                getchar(); // Consumir o '\n' pendente do scanf anterior
                 break;
             case 0:
                 printf("Saindo do sistema...\n");
                 break;
             default:
                 printf("Opcao invalida! Tente novamente.\n");
-        }
-        
-        if (opcao != 0) {
-            printf("\nPressione Enter para continuar...");
-            getchar();
+                printf("\nPressione Enter para continuar...");
+                getchar();
         }
         
     } while (opcao != 0);
